@@ -144,7 +144,7 @@ h6 {
 }
 
 h1 {
-  @apply text-[56px] uppercase leading-[58px] tracking-[2px];
+  @apply text-[56px] max-sm:text-[40px] uppercase leading-[58px] max-sm:leading-10 tracking-[2px] max-sm:tracking-[1.3px];
 }
 
 h2 {
