@@ -130,7 +130,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-manrope;
+    @apply bg-brand-neutral-100 text-foreground font-manrope;
   }
 }
 
@@ -167,15 +167,40 @@ h6 {
   @apply text-[18px] uppercase leading-6 tracking-[1.3px];
 }
 
-p,
-span {
-  @apply font-normal leading-[25px];
+p {
+  @apply text-[15px] leading-[25px] tracking-[0px];
 }
 
 .brand-overline {
-  @apply text-[14px] uppercase leading-[19px] tracking-[10px] text-brand-primary;
+  @apply text-[14px] uppercase leading-[19px] tracking-[10px];
 }
 
 .subtitle {
-  @apply text-[13px] font-bold uppercase leading-[25px] tracking-[1px] text-brand-primary;
+  @apply text-[13px] font-bold uppercase leading-[25px] tracking-[1px];
+}
+
+.brand-width {
+  max-width: 1110px;
+  width: 100%;
+}
+
+.bg-hero-overlay {
+  background-image: 
+        /* 1. Gradient for dark overlay on the right (fading out at 60%) */ linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0) 60%
+    ),
+    /* 2. Gradient for dark overlay on the left (fading out at 18%) */
+      linear-gradient(to left, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 18%),
+    /* 3. Gradient for dark overlay on the top (fading out at 30%) */
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 30%),
+    /* 4. Gradient for dark overlay on the bottom (fading out at 20%) */
+      linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 20%),
+    /* 5. The base image */ url("/homepage/image-hero.jpg");
+
+  /* Good practice to include sizing/repeat properties here as well */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
