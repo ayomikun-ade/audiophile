@@ -1,10 +1,21 @@
+"use client";
 import { Menu, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import audiophile from "@/assets/homepage/audiophile.svg";
 import Link from "next/link";
 import React from "react";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+  const pathname = usePathname();
+
+  const isActive = (path: string) => {
+    if (!pathname) return false;
+    if (path === "/") return pathname === "/";
+    return pathname === path || pathname.startsWith(`${path}/`);
+  };
+
+  console.log(pathname);
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Headphones", href: "/headphones" },
@@ -13,7 +24,11 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="md:bg-[#141414] max-md:bg-[#101010] text-white max-sm:px-0 max-lg:px-10">
+    <nav
+      className={`md:bg-[#141414] max-md:bg-[#101010] text-white max-sm:px-0 max-lg:px-10 ${
+        pathname !== "/" ? "bg-black!" : ""
+      }`}
+    >
       <section className="max-w-[1110px] mx-auto pt-8 max-md:pb-8 md:pb-9 max-sm:px-6 lg:px-6 border-b border-white/20 w-full flex items-center justify-between">
         <Menu size={20} className="text-white sm:hidden" />
 
@@ -25,7 +40,13 @@ const Navbar = () => {
         </div>
         <ul className="max-md:hidden flex gap-[34px] font-bold text-[13px] leading-[25px] *:tracking-[2px] *:hover:text-brand-primary *:transition-colors *:duration-300">
           {navLinks.map((link) => (
-            <Link key={link.name} href={link.href} className="uppercase">
+            <Link
+              key={link.name}
+              href={link.href}
+              className={`uppercase ${
+                isActive(link.href) ? "text-brand-primary" : ""
+              }`}
+            >
               {link.name}
             </Link>
           ))}

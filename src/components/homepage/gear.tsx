@@ -1,12 +1,16 @@
 import Image from "next/image";
 import AudioGear from "@/assets/homepage/gear.svg";
-import AudioGearMobile from "@/assets/homepage/gear-mobile.svg";
+import AudioGearTablet from "@/assets/homepage/gear-mobile.svg";
+import AudioGearMobile from "@/assets/homepage/image-best-gear.jpg";
 import React from "react";
+import { useIsDesktop, useIsTablet } from "@/hooks/useMediaQuery";
 
 const Gear = () => {
+  const isTablet = useIsTablet();
+  const isDesktop = useIsDesktop();
   return (
-    <section className="brand-width mx-auto px-6 max-sm:mb-[120px] max-md:mb-24 md:mb-[133px] flex max-md:flex-col-reverse max-md:gap-[63px] items-center justify-between">
-      <div className="space-y-8 max-md:max-w-[573px] md:max-w-[445px] max-md:flex flex-col items-center max-md:text-center">
+    <section className="brand-width mx-auto px-6 max-sm:mb-[120px] max-md:mb-24 md:mb-[133px] flex max-lg:flex-col-reverse max-lg:gap-[63px] items-center justify-between">
+      <div className="space-y-8 max-md:max-w-[573px] md:max-w-[445px] max-md:flex flex-col items-center max-lg:text-center">
         <h2>
           best Bringing you the{" "}
           <span className="text-brand-primary">best </span>
@@ -22,17 +26,12 @@ const Gear = () => {
         </p>
       </div>
       <Image
-        src={AudioGear}
+        src={
+          isDesktop ? AudioGear : isTablet ? AudioGearTablet : AudioGearMobile
+        }
         width={540}
         height={588}
-        className="rounded-md max-md:hidden max-sm:flex"
-        alt="audio gear image"
-      />
-      <Image
-        src={AudioGearMobile}
-        width={689}
-        height={300}
-        className="rounded-md md:hidden max-sm:hidden"
+        className="rounded-md "
         alt="audio gear image"
       />
     </section>

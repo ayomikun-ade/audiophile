@@ -1,10 +1,19 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import audiophile from "@/assets/homepage/audiophile.svg";
 import React from "react";
 import { Facebook, Instagram, Twitter } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
+
+  const isActive = (path: string) => {
+    if (!pathname) return false;
+    if (path === "/") return pathname === "/";
+    return pathname === path || pathname.startsWith(`${path}/`);
+  };
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Headphones", href: "/headphones" },
@@ -22,7 +31,13 @@ const Footer = () => {
           </Link>
           <ul className="flex max-sm:gap-4 max-md:gap- md:gap-[34px] max-sm:flex max-sm:flex-col font-bold text-[13px] leading-[25px] *:tracking-[2px] *:hover:text-brand-primary *:transition-colors *:duration-300">
             {navLinks.map((link) => (
-              <Link key={link.name} href={link.href} className="uppercase">
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`uppercase ${
+                  isActive(link.href) ? "text-brand-primary" : ""
+                }`}
+              >
                 {link.name}
               </Link>
             ))}

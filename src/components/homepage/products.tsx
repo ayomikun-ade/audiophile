@@ -1,54 +1,19 @@
 import React from "react";
 import { Button } from "../ui/button";
-import { ChevronRight } from "lucide-react";
-import Headphones from "@/assets/homepage/headphones-1.svg";
-import Speakers from "@/assets/homepage/speakers-1.svg";
+
 import SpeakerMain from "@/assets/homepage/speaker-main.png";
-import Earphones from "@/assets/homepage/earphones-1.svg";
 import SpeakerZX7 from "@/assets/homepage/speaker-zx7.svg";
 import SpeakerZX7Tablet from "@/assets/homepage/speaker-zx7-tablet.jpg";
 import SpeakerZX7Mobile from "@/assets/homepage/speaker-zx7-mobile.jpg";
 import EarphonesYX1 from "@/assets/homepage/earphones-yx1.svg";
 import Image from "next/image";
 import Link from "next/link";
+import QuickProducts from "./quick-products";
 
 const Products = () => {
-  const quickLinks = [
-    { name: "Headphones", href: "/headphones", image: Headphones },
-    { name: "Speakers", href: "/speakers", image: Speakers },
-    { name: "Earphones", href: "/earphones", image: Earphones },
-  ];
   return (
     <section className="max-sm:pt-[92px] max-sm:pb-[120px] max-md:py-[148px] md:py-[200px] brand-width mx-auto px-6 max-sm:space-y-6 max-md:space-y-8 md:space-y-12">
-      <div className="flex max-sm:flex-col max-sm:gap-[68px] gap-[30px]">
-        {quickLinks.map((link) => (
-          <div
-            key={link.name}
-            className="group hover:cursor-pointer bg-brand-neutral-200 flex-1 flex justify-center items-end pb-[30px] rounded-md max-sm:min-h-[165px] min-h-[204px] relative"
-          >
-            <div className="flex flex-col items-center gap-[15px]">
-              <h6>{link.name}</h6>
-              <Button
-                variant={"secondary"}
-                className="p-0 h-fit group-hover:text-brand-primary group-hover:opacity-100"
-              >
-                Shop{" "}
-                <ChevronRight
-                  size={16}
-                  className="text-brand-primary opacity-100!"
-                />
-              </Button>
-              <Image
-                src={link.image}
-                width={125}
-                height={163}
-                alt={`${link.name} image`}
-                className="absolute -translate-y-1/2 max-sm:h-[120px] h-full w-auto top-5 left-1/2 -translate-x-1/2"
-              />
-            </div>
-          </div>
-        ))}
-      </div>
+      <QuickProducts />
 
       <div className="max-sm:mt-[120px] max-md:mt-[96] md:mt-[168px] md:px-[95px] md:h-[560px] md:bg-[url(/home/speaker-circles.svg)] max-md:bg-[url(/home/speaker-circles-mobile.svg)] max-sm:bg-contain bg-no-repeat bg-brand-primary rounded-xl flex max-md:flex-col justify-between max-md:items-center relative overflow-hidden">
         <figure className="max-md:w-[200px] lg:transform lg:translate-y-24 mt-6 lg:mb-0 lg:mt-0">

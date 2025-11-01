@@ -184,6 +184,18 @@ p {
   width: 100%;
 }
 
+@media (max-width: 1024px) {
+  .brand-width {
+    max-width: 689px;
+  }
+}
+
+@media (max-width: 640px) {
+  .brand-width {
+    max-width: 327px;
+  }
+}
+
 .bg-hero-overlay {
   background-image: 
         /* 1. Gradient for dark overlay on the right (fading out at 60%) */ linear-gradient(
