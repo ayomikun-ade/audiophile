@@ -1,3 +1,5 @@
+import { OrderSummary } from "./types";
+
 export const headphonesData = [
   {
     id: "xx99-mark-two",
@@ -396,3 +398,30 @@ export const earphonesData = [
     also: ["xx99-mark-one", "xx59-headphones", "zx9-speaker"],
   },
 ];
+
+export const MOCK_ORDER_SUMMARY: OrderSummary = {
+  items: [
+    {
+      id: 1,
+      name: "XX99 MK II",
+      price: 2999,
+      quantity: 1,
+      image: "/path/to/xx99-mk2.png",
+    },
+    {
+      id: 2,
+      name: "XX99 MK I",
+      price: 1750,
+      quantity: 1,
+      image: "/path/to/xx99-mk1.png",
+    },
+    {
+      id: 3,
+      name: "ZX9 Speaker",
+      price: 4500,
+      quantity: 1,
+      image: "/path/to/zx9.png",
+    },
+  ],
+  grandTotal: 5446,
+};

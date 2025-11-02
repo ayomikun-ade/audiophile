@@ -1,5 +1,5 @@
 "use client";
-import { Menu, ShoppingCart } from "lucide-react";
+import { Menu } from "lucide-react";
 import Image from "next/image";
 import audiophile from "@/assets/homepage/audiophile.svg";
 import Link from "next/link";
@@ -72,10 +72,6 @@ const Navbar = () => {
             </Link>
           ))}
         </ul>
-        {/* <ShoppingCart
-          size={24}
-          className="hover:text-brand-primary cursor-pointer transition-colors duration-300"
-        /> */}
         <Cart />
       </section>
     </nav>
