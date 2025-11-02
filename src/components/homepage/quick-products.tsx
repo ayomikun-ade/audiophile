@@ -14,7 +14,7 @@ const QuickProducts = () => {
     { name: "Earphones", href: "/earphones", image: Earphones },
   ];
   return (
-    <div className="brand-width mx-auto flex max-sm:flex-col max-sm:gap-[68px] gap-[30px]">
+    <div className="brand-width mx-auto flex max-sm:flex-col max-sm:gap-[68px] gap-[30px] px-6">
       {quickLinks.map((link) => (
         <div
           key={link.name}

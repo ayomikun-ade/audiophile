@@ -1,25 +1,26 @@
 "use client";
-import Gear from "@/components/homepage/gear";
-import QuickProducts from "@/components/homepage/quick-products";
 import Header from "@/components/shared/header";
 import { Button } from "@/components/ui/button";
 import { useIsDesktop, useIsTablet } from "@/hooks/useMediaQuery";
-import { earphonesData } from "@/lib/data";
+import { headphonesData } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const EarphonesPage = () => {
+const HeadphonesPage = () => {
   const isTablet = useIsTablet();
   const isDesktop = useIsDesktop();
-  const earphones = earphonesData ?? [];
+
+  const headphones = headphonesData ?? [];
+
   return (
-    <main>
-      <Header heading="Earphones" />
+    <main className="">
+      <Header heading="Headphones" />
+
       <section className="max-sm:space-y-[120px] sm:space-y-40 max-lg:mt-16 lg:mt-40 lg:mb-[120px] brand-width mx-auto px-6">
-        {earphones.map((earphone, index) => (
+        {headphones.map((headphone, index) => (
           <div
-            key={earphone.id}
+            key={headphone.id}
             className={`flex max-sm:gap-8 max-lg:flex-col max-lg:items-center max-lg:gap-[52px] lg:items-center lg:justify-between lg:gap-4 ${
               index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
             }`}
@@ -27,14 +28,14 @@ const EarphonesPage = () => {
             <Image
               src={
                 isDesktop
-                  ? earphone.desktopUrl
+                  ? headphone.desktopUrl
                   : isTablet
-                  ? earphone.tabletUrl
-                  : earphone.mobileUrl
+                  ? headphone.preview
+                  : headphone.mobileUrl
               }
               width={540}
               height={560}
-              alt={earphone.name}
+              alt={headphone.name}
               className={isTablet ? "w-full h-auto rounded-xl" : "rounded-xl"}
             />
             <div className="sm:max-w-[572px] max-lg:text-center lg:max-w-[445px]">
@@ -47,23 +48,19 @@ const EarphonesPage = () => {
               >
                 New Product
               </p>
-              <h2 className="max-sm:mb-6 mb-8">{earphone.name}</h2>
+              <h2 className="max-sm:mb-6 mb-8">{headphone.name}</h2>
               <p className="max-sm:mb-6 mb-10 opacity-50">
-                {earphone.description}
+                {headphone.description}
               </p>
-              <Link href={`/earphones/${earphone.id}`}>
+              <Link href={`/headphones/${headphone.id}`}>
                 <Button>See Product</Button>
               </Link>
             </div>
           </div>
         ))}
       </section>
-      <section className="max-sm:pt-[172px] max-md:pt-[120px] md:pt-40 space-y-40">
-        <QuickProducts />
-        <Gear />
-      </section>
     </main>
   );
 };
 
-export default EarphonesPage;
+export default HeadphonesPage;

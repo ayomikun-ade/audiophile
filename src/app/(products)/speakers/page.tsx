@@ -1,6 +1,4 @@
 "use client";
-import Gear from "@/components/homepage/gear";
-import QuickProducts from "@/components/homepage/quick-products";
 import Header from "@/components/shared/header";
 import { Button } from "@/components/ui/button";
 import { useIsDesktop, useIsTablet } from "@/hooks/useMediaQuery";
@@ -57,10 +55,6 @@ const SpeakersPage = () => {
             </div>
           </div>
         ))}
-      </section>
-      <section className="max-sm:pt-[172px] max-md:pt-[120px] md:pt-40 max-lg:space-y-[120px] space-y-40">
-        <QuickProducts />
-        <Gear />
       </section>
     </main>
   );
