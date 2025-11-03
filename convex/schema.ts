@@ -33,7 +33,10 @@ export default defineSchema({
       grandTotal: v.number(),
     }),
 
-    status: v.string(), // e.g: "pending", "paid", "shipped"
-    createdAt: v.number(), // Date.now()
-  }),
+    status: v.string(),
+    createdAt: v.number(),
+  })
+    .index("by_custom_id", ["orderId"])
+    .index("by_status", ["status"])
+    .index("by_createdAt", ["createdAt"]),
 });

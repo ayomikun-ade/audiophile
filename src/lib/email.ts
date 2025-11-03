@@ -10,6 +10,14 @@ interface OrderItem {
   image: string;
 }
 
+interface ShippingDetails {
+  name: string;
+  address: string;
+  city: string;
+  zip: string;
+  country: string;
+}
+
 interface EmailData {
   orderId: string;
   customerName: string;
@@ -17,6 +25,7 @@ interface EmailData {
   orderDate: string;
   items: OrderItem[];
   totalAmount: number;
+  shipping: ShippingDetails;
 }
 
 export async function sendOrderConfirmationEmail(
@@ -97,13 +106,22 @@ export async function sendOrderConfirmationEmail(
     )
     .join("");
 
+  // Generate order view URL
+  const orderViewUrl = `${baseUrl}/orders/${data.orderId}`;
+
   emailTemplate = emailTemplate
     .replace(/{{company_name}}/g, "Audiophile")
     .replace(/{{customer_name}}/g, data.customerName)
     .replace(/{{order_id}}/g, data.orderId)
     .replace(/{{order_date}}/g, data.orderDate)
     .replace(/{{ORDER_ITEMS}}/g, itemsHTML)
-    .replace(/{{total_amount}}/g, data.totalAmount.toLocaleString());
+    .replace(/{{total_amount}}/g, data.totalAmount.toLocaleString())
+    .replace(/{{ORDER_VIEW_URL}}/g, orderViewUrl)
+    .replace(/{{shipping_name}}/g, data.shipping.name)
+    .replace(/{{shipping_address}}/g, data.shipping.address)
+    .replace(/{{shipping_city}}/g, data.shipping.city)
+    .replace(/{{shipping_zip}}/g, data.shipping.zip)
+    .replace(/{{shipping_country}}/g, data.shipping.country);
 
   const transporter = nodemailer.createTransport({
     service: "gmail",

@@ -54,6 +54,7 @@ const CheckoutPage = () => {
   const cartTotal = useCartTotal();
   const clearCart = useStore((s) => s.clearCart);
   const createOrder = useMutation(api.orders.createOrder);
+  const updateStatus = useMutation(api.orders.updateStatusByCustomId);
 
   const handleClose = () => {
     router.push("/");
@@ -108,7 +109,6 @@ const CheckoutPage = () => {
 
       console.log("Order placed successfully with ID:", order);
 
-      // Send order confirmation email
       try {
         await fetch("/api/send-order-email", {
           method: "POST",
@@ -127,17 +127,30 @@ const CheckoutPage = () => {
               image: item.mobileUrl,
             })),
             totalAmount: cartTotal + 50,
+            shipping: {
+              name: data.name,
+              address: data.address,
+              city: data.city,
+              zip: data.zipCode,
+              country: data.country,
+            },
           }),
         });
         console.log("Order confirmation email sent");
+
+        await updateStatus({
+          orderId: orderId,
+          status: "confirmed",
+        });
+        console.log("Order status updated to 'confirmed'");
       } catch (emailError) {
         console.error("Failed to send confirmation email:", emailError);
-        // Don't block the order flow if email fails
       }
 
       setIsModalOpen(true);
       form.reset();
-      toast.success("Order successful");
+
+      toast.success("Order successful and email sent!");
     } catch (error) {
       console.error("Failed to place order:", error);
       toast.error("An error occurred");

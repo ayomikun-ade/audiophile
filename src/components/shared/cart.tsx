@@ -31,18 +31,23 @@ export default function Cart() {
           />
         </button>
       </DialogTrigger>
-      <DialogContent className="max-w-[377px] p-6 pt-8 top-[25%] sm:left-[55%] md:left-[65%] lg:left-[70%]">
+      <DialogContent
+        showCloseButton={false}
+        className="max-w-[377px] p-6 top-[25%] sm:left-[55%] md:left-[65%] lg:left-[70%]"
+      >
         <DialogHeader>
           <div className="flex justify-between items-center">
             <DialogTitle asChild>
               <h6 className="text-left">Cart ({cart.length})</h6>
             </DialogTitle>
-            <button
-              onClick={() => clearCart()}
-              className="underline opacity-50 hover:text-brand-primary cursor-pointer hover:opacity-100"
-            >
-              Remove all
-            </button>
+            {cart.length > 0 && (
+              <button
+                onClick={() => clearCart()}
+                className="underline opacity-50 hover:text-brand-primary cursor-pointer hover:opacity-100"
+              >
+                Remove all
+              </button>
+            )}
           </div>
           <DialogDescription className="sr-only">User cart</DialogDescription>
         </DialogHeader>

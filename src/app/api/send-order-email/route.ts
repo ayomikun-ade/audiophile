@@ -4,9 +4,9 @@ import { sendOrderConfirmationEmail } from "@/lib/email";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { orderId, customerName, customerEmail, items, totalAmount } = body;
+    const { orderId, customerName, customerEmail, items, totalAmount, shipping } = body;
 
-    if (!orderId || !customerName || !customerEmail || !items || !totalAmount) {
+    if (!orderId || !customerName || !customerEmail || !items || !totalAmount || !shipping) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -26,6 +26,7 @@ export async function POST(request: NextRequest) {
       orderDate,
       items,
       totalAmount,
+      shipping,
     });
 
     return NextResponse.json(

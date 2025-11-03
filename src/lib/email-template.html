@@ -196,7 +196,7 @@
                     letter-spacing: -1px;
                   "
                 >
-                  {{company_name}}
+                  audiophile
                 </h1>
                 <p
                   style="
@@ -359,6 +359,38 @@
                   </div>
                 </div>
 
+                <!-- Shipping Details -->
+                <div style="margin: 30px 0">
+                  <h3
+                    style="
+                      margin: 0 0 20px 0;
+                      color: #101010;
+                      font-size: 18px;
+                      font-weight: bold;
+                    "
+                    class="dark-mode-text"
+                  >
+                    Shipping Details:
+                  </h3>
+                  <div
+                    style="
+                      background-color: #f9f9f9;
+                      padding: 20px;
+                      border-radius: 8px;
+                      border-left: 4px solid #d87d4a;
+                    "
+                  >
+                    <p style="margin: 0 0 5px 0; color: #101010; font-weight: bold;">
+                      {{shipping_name}}
+                    </p>
+                    <p style="margin: 0; color: #101010; line-height: 1.6;">
+                      {{shipping_address}}<br />
+                      {{shipping_city}}, {{shipping_zip}}<br />
+                      {{shipping_country}}
+                    </p>
+                  </div>
+                </div>
+
                 <!-- Additional content -->
                 <div
                   style="
@@ -384,15 +416,44 @@
                   </p>
                 </div>
 
+                <!-- Support/Contact Info -->
+                <div
+                  style="
+                    background-color: #f9f9f9;
+                    padding: 20px;
+                    border-radius: 8px;
+                    margin: 30px 0;
+                    text-align: center;
+                  "
+                >
+                  <h3
+                    style="
+                      margin: 0 0 15px 0;
+                      color: #101010;
+                      font-size: 18px;
+                      font-weight: bold;
+                    "
+                  >
+                    Need Help?
+                  </h3>
+                  <p style="margin: 0 0 10px 0; color: #101010;">
+                    Our customer support team is here to assist you.
+                  </p>
+                  <p style="margin: 0; color: #101010;">
+                    <strong>Email:</strong> <a href="mailto:support@audiophile.com" style="color: #d87d4a; text-decoration: none;">support@audiophile.com</a><br />
+                    <strong>Phone:</strong> <a href="tel:+1-800-AUDIO-01" style="color: #d87d4a; text-decoration: none;">+1 (800) AUDIO-01</a>
+                  </p>
+                </div>
+
                 <!-- Call to action -->
                 <div style="text-align: center; margin: 40px 0">
                   <!--[if mso]>
-                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://audiophile-five-hazel.vercel.app/" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="10%" stroke="f" fillcolor="#d87d4a">
+                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{{ORDER_VIEW_URL}}" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="10%" stroke="f" fillcolor="#d87d4a">
                                 <w:anchorlock/>
                                 <center>
                                 <![endif]-->
                   <a
-                    href="https://audiophile-five-hazel.vercel.app/"
+                    href="{{ORDER_VIEW_URL}}"
                     style="
                       background-color: #d87d4a;
                       color: #ffffff;
@@ -404,7 +465,7 @@
                       display: inline-block;
                       text-align: center;
                     "
-                    >Continue Shopping</a
+                    >View your order</a
                   >
                   <!--[if mso]>
                                 </center>
