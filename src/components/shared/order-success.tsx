@@ -29,8 +29,6 @@ const SuccessModal = ({
     return `$${amount.toLocaleString("en-US")}`;
   };
 
-  console.log(orderSummary);
-
   const cartTotal = useCartTotal();
   const grandTotal = cartTotal + 50;
 
@@ -108,7 +106,7 @@ const SuccessModal = ({
           <div className="md:w-[40%] bg-black p-6 flex flex-col justify-end rounded-b-lg md:rounded-l-none md:rounded-r-lg">
             <p className="uppercase text-white opacity-50">Grand Total</p>
             <p className="text-lg font-bold text-white">
-              {grandTotal.toLocaleString()}
+              ${grandTotal.toLocaleString()}
             </p>
           </div>
         </div>

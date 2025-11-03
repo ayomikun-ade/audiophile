@@ -40,6 +40,8 @@ const initialValues: Partial<CheckoutFormValues> = {
 
 const CheckoutPage = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+
   const router = useRouter();
 
   const form = useForm<CheckoutFormValues>({
@@ -54,7 +56,9 @@ const CheckoutPage = () => {
   const createOrder = useMutation(api.orders.createOrder);
 
   const handleClose = () => {
+    router.push("/");
     setIsModalOpen(false);
+    clearCart();
   };
 
   const handleBackToHome = () => {
@@ -64,6 +68,7 @@ const CheckoutPage = () => {
   };
 
   const onSubmit = async (data: CheckoutFormValues) => {
+    setLoading(true);
     try {
       const orderId = await createOrder({
         customer: {
@@ -99,6 +104,8 @@ const CheckoutPage = () => {
     } catch (error) {
       console.error("Failed to place order:", error);
       toast.error("An error occurred");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -482,8 +489,8 @@ const CheckoutPage = () => {
 
                 {cart.length > 0 && (
                   <div>
-                    <Button type="submit" className="w-full">
-                      Continue & Pay
+                    <Button type="submit" className="w-full" disabled={loading}>
+                      {loading ? "Processing..." : "Continue & Pay"}
                     </Button>
                   </div>
                 )}
