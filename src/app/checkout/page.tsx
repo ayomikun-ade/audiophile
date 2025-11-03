@@ -67,10 +67,20 @@ const CheckoutPage = () => {
     clearCart();
   };
 
+  function generateOrderId() {
+    const timeBasedString = Date.now().toString(36).toUpperCase();
+    const suffix = Math.floor(Math.random() * 1000)
+      .toString()
+      .padStart(3, "0");
+    return `ORD-${timeBasedString}-${suffix}`;
+  }
+
   const onSubmit = async (data: CheckoutFormValues) => {
     setLoading(true);
     try {
-      const orderId = await createOrder({
+      const orderId = generateOrderId();
+      const order = await createOrder({
+        orderId,
         customer: {
           name: data.name,
           email: data.email,
@@ -96,7 +106,34 @@ const CheckoutPage = () => {
         },
       });
 
-      console.log("Order placed successfully with ID:", orderId);
+      console.log("Order placed successfully with ID:", order);
+
+      // Send order confirmation email
+      try {
+        await fetch("/api/send-order-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            orderId,
+            customerName: data.name,
+            customerEmail: data.email,
+            items: cart.map((item) => ({
+              id: item.id,
+              name: item.name,
+              price: item.price,
+              quantity: item.quantity,
+              image: item.mobileUrl,
+            })),
+            totalAmount: cartTotal + 50,
+          }),
+        });
+        console.log("Order confirmation email sent");
+      } catch (emailError) {
+        console.error("Failed to send confirmation email:", emailError);
+        // Don't block the order flow if email fails
+      }
 
       setIsModalOpen(true);
       form.reset();

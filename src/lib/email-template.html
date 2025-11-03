@@ -1,0 +1,540 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="date=no" />
+    <meta name="format-detection" content="address=no" />
+    <meta name="format-detection" content="email=no" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+    <title>Your Order is on its way</title>
+    <style type="text/css">
+      /* Reset styles */
+      body,
+      table,
+      td,
+      p,
+      a,
+      li,
+      blockquote {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+      table,
+      td {
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
+      img {
+        -ms-interpolation-mode: bicubic;
+      }
+
+      /* Base styles */
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        background-color: #f1f1f1;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #101010;
+      }
+
+      /* Dark mode support */
+      @media (prefers-color-scheme: dark) {
+        .dark-mode-bg {
+          background-color: #1a1a1a !important;
+        }
+        .dark-mode-content {
+          background-color: #2a2a2a !important;
+        }
+        .dark-mode-text {
+          color: #0e0e0e !important;
+        }
+      }
+
+      /* Mobile responsive */
+      @media screen and (max-width: 600px) {
+        .container {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+        .mobile-padding {
+          padding: 20px !important;
+        }
+        .mobile-center {
+          text-align: center !important;
+        }
+        .mobile-full-width {
+          width: 100% !important;
+          display: block !important;
+        }
+      }
+
+      /* Button styles */
+      .cta-button {
+        background-color: #d87d4a;
+        color: #ffffff;
+        padding: 15px 30px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 16px;
+        display: inline-block;
+        text-align: center;
+        mso-hide: all;
+      }
+
+      .cta-button:hover {
+        background-color: #c76d3a;
+      }
+
+      /* VML button for Outlook */
+      .outlook-button {
+        mso-element-frame-width: 200px;
+        mso-element-frame-height: 50px;
+        mso-element: para-border-div;
+        mso-element-left: undefined;
+        mso-element-top: undefined;
+        mso-element-wrap: around;
+      }
+
+      /* Order details styling */
+      .order-item {
+        border-bottom: 1px solid #e0e0e0;
+        padding: 15px 0;
+      }
+
+      .order-total {
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 18px;
+      }
+    </style>
+    <!--[if gte mso 9]>
+      <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG />
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+      </xml>
+    <![endif]-->
+  </head>
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      background-color: #f1f1f1;
+      font-family: Arial, Helvetica, sans-serif;
+    "
+    class="dark-mode-bg"
+  >
+    <!-- Preheader text -->
+    <div
+      style="
+        display: none;
+        max-height: 0;
+        overflow: hidden;
+        font-size: 1px;
+        line-height: 1px;
+        color: transparent;
+      "
+    >
+      Your Audiophile order has been confirmed and is being prepared for
+      shipment. View your order details inside.
+    </div>
+
+    <!-- Main container -->
+    <table
+      role="presentation"
+      cellspacing="0"
+      cellpadding="0"
+      border="0"
+      width="100%"
+      style="background-color: #f1f1f1"
+      class="dark-mode-bg"
+    >
+      <tr>
+        <td align="center" style="padding: 20px 0">
+          <!-- Email content wrapper -->
+          <table
+            role="presentation"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            width="600"
+            class="container"
+            style="
+              max-width: 600px;
+              background-color: #ffffff;
+              border-radius: 8px;
+              box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            "
+            class="dark-mode-content"
+          >
+            <!-- Header -->
+            <tr>
+              <td
+                style="
+                  padding: 40px 40px 20px 40px;
+                  text-align: center;
+                  background-color: #d87d4a;
+                  border-radius: 8px 8px 0 0;
+                "
+                class="mobile-padding"
+              >
+                <h1
+                  style="
+                    margin: 0;
+                    color: #ffffff;
+                    font-size: 32px;
+                    font-weight: bold;
+                    letter-spacing: -1px;
+                  "
+                >
+                  {{company_name}}
+                </h1>
+                <p
+                  style="
+                    margin: 10px 0 0 0;
+                    color: #f1f1f1;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                  "
+                >
+                  Premium Audio Equipment
+                </p>
+              </td>
+            </tr>
+
+            <!-- Main content -->
+            <tr>
+              <td style="padding: 40px" class="mobile-padding">
+                <!-- Greeting -->
+                <h2
+                  style="
+                    margin: 0 0 20px 0;
+                    color: #101010;
+                    font-size: 24px;
+                    font-weight: bold;
+                  "
+                  class="dark-mode-text"
+                >
+                  Order Confirmed! 🎉
+                </h2>
+
+                <!-- Main message -->
+                <div
+                  style="
+                    color: #101010;
+                    font-size: 16px;
+                    line-height: 1.6;
+                    margin-bottom: 30px;
+                  "
+                  class="dark-mode-text"
+                >
+                  <p style="margin: 0 0 20px 0">Dear {{customer_name}},</p>
+
+                  <p style="margin: 0 0 20px 0">
+                    Thank you for choosing Audiophile for your audio equipment
+                    needs. We're delighted to confirm that your order has been
+                    successfully processed and is now being prepared for
+                    shipment.
+                  </p>
+                </div>
+
+                <!-- Order confirmation details -->
+                <div
+                  style="
+                    background-color: #f9f9f9;
+                    padding: 25px;
+                    border-radius: 8px;
+                    margin: 30px 0;
+                    border-left: 4px solid #d87d4a;
+                  "
+                >
+                  <h3
+                    style="
+                      margin: 0 0 15px 0;
+                      color: #101010;
+                      font-size: 18px;
+                      font-weight: bold;
+                    "
+                  >
+                    Order Confirmation Details:
+                  </h3>
+
+                  <table
+                    role="presentation"
+                    cellspacing="0"
+                    cellpadding="0"
+                    border="0"
+                    width="100%"
+                    style="margin-bottom: 20px"
+                  >
+                    <tr>
+                      <td
+                        style="
+                          padding: 5px 0;
+                          color: #101010;
+                          font-weight: bold;
+                        "
+                      >
+                        Order ID:
+                      </td>
+                      <td style="padding: 5px 0; color: #101010">
+                        {{order_id}}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td
+                        style="
+                          padding: 5px 0;
+                          color: #101010;
+                          font-weight: bold;
+                        "
+                      >
+                        Order Date:
+                      </td>
+                      <td style="padding: 5px 0; color: #101010">
+                        {{order_date}}
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <!-- Items ordered -->
+                <div style="margin: 30px 0">
+                  <h3
+                    style="
+                      margin: 0 0 20px 0;
+                      color: #101010;
+                      font-size: 18px;
+                      font-weight: bold;
+                    "
+                    class="dark-mode-text"
+                  >
+                    Items Ordered:
+                  </h3>
+
+                  <div
+                    style="
+                      border: 1px solid #e0e0e0;
+                      border-radius: 8px;
+                      overflow: hidden;
+                    "
+                  >
+                    {{ORDER_ITEMS}}
+                  </div>
+                </div>
+
+                <!-- Order total -->
+                <div
+                  class="order-total"
+                  style="
+                    background-color: #101010;
+                    color: #f1f1f1;
+                    padding: 20px;
+                    border-radius: 8px;
+                    text-align: center;
+                    margin: 30px 0;
+                  "
+                >
+                  <div
+                    style="
+                      font-size: 18px;
+                      font-weight: bold;
+                      margin-bottom: 5px;
+                    "
+                  >
+                    Order Total: ${{total_amount}}
+                  </div>
+                  <div style="font-size: 12px; color: #d87d4a">
+                    *Includes shipping and applicable taxes*
+                  </div>
+                </div>
+
+                <!-- Additional content -->
+                <div
+                  style="
+                    color: #101010;
+                    font-size: 16px;
+                    line-height: 1.6;
+                    margin: 30px 0;
+                  "
+                  class="dark-mode-text"
+                >
+                  <p style="margin: 0 0 20px 0">
+                    Your carefully selected audio equipment is being prepared by
+                    our fulfillment team and will be shipped within the next 5-7
+                    business days. You'll receive a shipping confirmation email
+                    with tracking information once your order is dispatched.
+                  </p>
+
+                  <p style="margin: 0 0 20px 0">
+                    At Audiophile, we understand that exceptional sound quality
+                    matters to you, which is why we've carefully curated each
+                    product in our collection to deliver the premium audio
+                    experience you deserve.
+                  </p>
+                </div>
+
+                <!-- Call to action -->
+                <div style="text-align: center; margin: 40px 0">
+                  <!--[if mso]>
+                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://audiophile-five-hazel.vercel.app/" style="height:50px;v-text-anchor:middle;width:200px;" arcsize="10%" stroke="f" fillcolor="#d87d4a">
+                                <w:anchorlock/>
+                                <center>
+                                <![endif]-->
+                  <a
+                    href="https://audiophile-five-hazel.vercel.app/"
+                    style="
+                      background-color: #d87d4a;
+                      color: #ffffff;
+                      padding: 15px 30px;
+                      text-decoration: none;
+                      border-radius: 5px;
+                      font-weight: bold;
+                      font-size: 16px;
+                      display: inline-block;
+                      text-align: center;
+                    "
+                    >Continue Shopping</a
+                  >
+                  <!--[if mso]>
+                                </center>
+                                </v:roundrect>
+                                <![endif]-->
+                </div>
+
+                <!-- Closing -->
+                <div
+                  style="
+                    color: #101010;
+                    font-size: 16px;
+                    line-height: 1.6;
+                    margin-top: 30px;
+                    padding-top: 30px;
+                    border-top: 1px solid #e0e0e0;
+                  "
+                  class="dark-mode-text"
+                >
+                  <p style="margin: 0 0 10px 0">Thank you for your business,</p>
+                  <p style="margin: 0; font-weight: bold; color: #d87d4a">
+                    The {{company_name}} Team
+                  </p>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td
+                style="
+                  background-color: #101010;
+                  padding: 30px 40px;
+                  border-radius: 0 0 8px 8px;
+                "
+                class="mobile-padding"
+              >
+                <!-- Social links -->
+                <div style="text-align: center; margin-bottom: 20px">
+                  <a
+                    href="#"
+                    style="
+                      display: inline-block;
+                      margin: 0 10px;
+                      color: #d87d4a;
+                      text-decoration: none;
+                      font-size: 14px;
+                    "
+                    >Facebook</a
+                  >
+                  <a
+                    href="#"
+                    style="
+                      display: inline-block;
+                      margin: 0 10px;
+                      color: #d87d4a;
+                      text-decoration: none;
+                      font-size: 14px;
+                    "
+                    >Twitter</a
+                  >
+                  <a
+                    href="#"
+                    style="
+                      display: inline-block;
+                      margin: 0 10px;
+                      color: #d87d4a;
+                      text-decoration: none;
+                      font-size: 14px;
+                    "
+                    >LinkedIn</a
+                  >
+                  <a
+                    href="#"
+                    style="
+                      display: inline-block;
+                      margin: 0 10px;
+                      color: #d87d4a;
+                      text-decoration: none;
+                      font-size: 14px;
+                    "
+                    >Instagram</a
+                  >
+                </div>
+
+                <!-- Company info -->
+                <div
+                  style="
+                    text-align: center;
+                    color: #f1f1f1;
+                    font-size: 12px;
+                    line-height: 1.4;
+                  "
+                >
+                  <p style="margin: 0 0 10px 0">
+                    © 2024 {{company_name}}. All rights reserved.
+                  </p>
+                  <p style="margin: 0 0 15px 0">
+                    Premium Audio Equipment for Discerning Listeners
+                  </p>
+
+                  <!-- Legal links -->
+                  <div style="margin: 20px 0">
+                    <a
+                      href="#"
+                      style="
+                        color: #d87d4a;
+                        text-decoration: none;
+                        margin: 0 10px;
+                        font-size: 12px;
+                      "
+                      >Privacy Policy</a
+                    >
+                    <a
+                      href="#"
+                      style="
+                        color: #d87d4a;
+                        text-decoration: none;
+                        margin: 0 10px;
+                        font-size: 12px;
+                      "
+                      >Terms of Service</a
+                    >
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
