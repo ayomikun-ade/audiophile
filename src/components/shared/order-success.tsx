@@ -29,6 +29,8 @@ const SuccessModal = ({
     return `$${amount.toLocaleString("en-US")}`;
   };
 
+  console.log(orderSummary);
+
   const cartTotal = useCartTotal();
   const grandTotal = cartTotal + 50;
 

@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useIsDesktop, useIsTablet } from "@/hooks/useMediaQuery";
 import { earphonesData, headphonesData, speakersData } from "@/lib/data";
+import { useStore } from "@/store/useStore";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +13,7 @@ const SingleEarphonePage = () => {
   const { id } = useParams();
   const isTablet = useIsTablet();
   const isDesktop = useIsDesktop();
+  const addToCart = useStore((state) => state.addToCart);
 
   const headphones = headphonesData ?? [];
   const speakers = speakersData ?? [];
@@ -91,7 +93,16 @@ const SingleEarphonePage = () => {
                   <Plus size={16} />
                 </button>
               </div>
-              <Button>Add to Cart</Button>
+              {earphone && (
+                <Button
+                  onClick={() => {
+                    addToCart(earphone, count);
+                    setCount(1);
+                  }}
+                >
+                  Add to Cart
+                </Button>
+              )}
             </div>
           </div>
         </div>

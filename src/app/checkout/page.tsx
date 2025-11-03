@@ -22,6 +22,8 @@ import { useCart, useCartTotal, useStore } from "@/store/useStore";
 import { ShoppingCart } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
+import { api } from "../../../convex/_generated/api";
 
 const initialValues: Partial<CheckoutFormValues> = {
   name: "",
@@ -49,6 +51,7 @@ const CheckoutPage = () => {
   const cart = useCart();
   const cartTotal = useCartTotal();
   const clearCart = useStore((s) => s.clearCart);
+  const createOrder = useMutation(api.orders.createOrder);
 
   const handleClose = () => {
     setIsModalOpen(false);
@@ -57,14 +60,46 @@ const CheckoutPage = () => {
   const handleBackToHome = () => {
     router.push("/");
     setIsModalOpen(false);
+    clearCart();
   };
 
-  const onSubmit = (data: CheckoutFormValues) => {
-    console.log("Form Submitted:", data);
-    setIsModalOpen(true);
-    form.reset();
-    clearCart();
-    toast.success("Order successful");
+  const onSubmit = async (data: CheckoutFormValues) => {
+    try {
+      const orderId = await createOrder({
+        customer: {
+          name: data.name,
+          email: data.email,
+          phone: data.phoneNumber,
+        },
+        shipping: {
+          address: data.address,
+          city: data.city,
+          country: data.country,
+          zip: data.zipCode,
+        },
+        items: cart.map((item) => ({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+        })),
+        totals: {
+          subtotal: cartTotal,
+          shipping: 50,
+          taxes: cartTotal * 0.07,
+          grandTotal: cartTotal + 50,
+        },
+      });
+
+      console.log("Order placed successfully with ID:", orderId);
+
+      setIsModalOpen(true);
+      form.reset();
+      toast.success("Order successful");
+    } catch (error) {
+      console.error("Failed to place order:", error);
+      toast.error("An error occurred");
+    }
   };
 
   return (
@@ -421,7 +456,9 @@ const CheckoutPage = () => {
                       </p>
                       <p className="uppercase flex justify-between items-center">
                         <span className="opacity-50">Vat (included)</span>
-                        <span className="font-bold text-lg">7.5%</span>
+                        <span className="font-bold text-lg">
+                          ${(cartTotal * 0.07).toFixed(2)}
+                        </span>
                       </p>
                     </div>
                     <p className="uppercase flex justify-between items-center mt-6 mb-8">
@@ -448,14 +485,14 @@ const CheckoutPage = () => {
                     <Button type="submit" className="w-full">
                       Continue & Pay
                     </Button>
-                    <SuccessModal
-                      isOpen={isModalOpen}
-                      onClose={handleClose}
-                      orderSummary={cart}
-                      onBackToHome={handleBackToHome}
-                    />
                   </div>
                 )}
+                <SuccessModal
+                  isOpen={isModalOpen}
+                  onClose={handleClose}
+                  orderSummary={cart}
+                  onBackToHome={handleBackToHome}
+                />
               </div>
             </section>
           </form>
