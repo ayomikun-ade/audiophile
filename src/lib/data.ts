@@ -1,5 +1,3 @@
-import { OrderSummary } from "./types";
-
 export const headphonesData = [
   {
     id: "xx99-mark-two",
@@ -399,7 +397,7 @@ export const earphonesData = [
   },
 ];
 
-export const MOCK_ORDER_SUMMARY: OrderSummary = {
+export const MOCK_ORDER_SUMMARY = {
   items: [
     {
       id: 1,
