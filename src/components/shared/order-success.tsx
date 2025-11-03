@@ -2,14 +2,15 @@ import React from "react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Separator } from "@/components/ui/separator";
-import { OrderSummary } from "@/lib/types";
+import { CartItem } from "@/lib/types";
 import Image from "next/image";
 import SuccessIcon from "@/assets/icon-order-confirmation.svg";
+import { useCartTotal } from "@/store/useStore";
 
 interface OrderConfirmationDialogProps {
   isOpen: boolean;
   onClose: () => void;
-  orderSummary: OrderSummary;
+  orderSummary: CartItem[];
   onBackToHome: () => void;
 }
 
@@ -21,16 +22,15 @@ const SuccessModal = ({
 }: OrderConfirmationDialogProps) => {
   const [showAllItems, setShowAllItems] = React.useState(false);
 
-  // Determine which items to display
-  const itemsToShow = showAllItems
-    ? orderSummary.items
-    : orderSummary.items.slice(0, 1);
-
-  const remainingItemsCount = orderSummary.items.length - itemsToShow.length;
+  const itemsToShow = showAllItems ? orderSummary : orderSummary.slice(0, 1);
+  const remainingItemsCount = orderSummary.length - itemsToShow.length;
 
   const formatCurrency = (amount: number) => {
     return `$${amount.toLocaleString("en-US")}`;
   };
+
+  const cartTotal = useCartTotal();
+  const grandTotal = cartTotal + 50;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -59,15 +59,17 @@ const SuccessModal = ({
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-4">
                     <Image
-                      src={
-                        "/earphones/product-yx1-earphones/mobile/image-product.jpg"
-                      }
+                      src={item.mobileUrl}
                       width={64}
                       height={64}
                       alt="product image"
                     />
                     <div>
-                      <p className="text-sm font-bold truncate">{item.name}</p>
+                      <p className="text-sm font-bold truncate">
+                        {item?.name
+                          ?.replace(/headphones|earphones|speakers/i, "")
+                          .trim()}
+                      </p>
                       <p className="text-sm opacity-50 font-bold">
                         {formatCurrency(item.price)}
                       </p>
@@ -84,7 +86,7 @@ const SuccessModal = ({
             ))}
 
             {/* View More/Less Toggle */}
-            {orderSummary.items.length > 1 && (
+            {orderSummary.length > 1 && (
               <>
                 <Separator className="bg-gray-300" />
                 <button
@@ -104,7 +106,7 @@ const SuccessModal = ({
           <div className="md:w-[40%] bg-black p-6 flex flex-col justify-end rounded-b-lg md:rounded-l-none md:rounded-r-lg">
             <p className="uppercase text-white opacity-50">Grand Total</p>
             <p className="text-lg font-bold text-white">
-              {formatCurrency(orderSummary.grandTotal)}
+              {grandTotal.toLocaleString()}
             </p>
           </div>
         </div>

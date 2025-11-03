@@ -17,8 +17,11 @@ import { checkoutFormSchema, CheckoutFormValues } from "@/lib/schema";
 import Image from "next/image";
 import CashIcon from "@/assets/icon-cash-on-delivery.svg";
 import SuccessModal from "@/components/shared/order-success";
-import { MOCK_ORDER_SUMMARY } from "@/lib/data";
 import { Button } from "@/components/ui/button";
+import { useCart, useCartTotal, useStore } from "@/store/useStore";
+import { ShoppingCart } from "lucide-react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const initialValues: Partial<CheckoutFormValues> = {
   name: "",
@@ -35,30 +38,33 @@ const initialValues: Partial<CheckoutFormValues> = {
 
 const CheckoutPage = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const router = useRouter();
 
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutFormSchema),
     defaultValues: initialValues,
-    mode: "onBlur",
+    mode: "onSubmit",
   });
 
-  const { paymentMethod } = form.watch();
-
-  const orderData = MOCK_ORDER_SUMMARY;
+  const cart = useCart();
+  const cartTotal = useCartTotal();
+  const clearCart = useStore((s) => s.clearCart);
 
   const handleClose = () => {
     setIsModalOpen(false);
-    // You might also clear the cart or navigate away here
   };
 
   const handleBackToHome = () => {
-    console.log("Navigating back to home...");
+    router.push("/");
     setIsModalOpen(false);
   };
 
   const onSubmit = (data: CheckoutFormValues) => {
     console.log("Form Submitted:", data);
     setIsModalOpen(true);
+    form.reset();
+    clearCart();
+    toast.success("Order successful");
   };
 
   return (
@@ -90,7 +96,7 @@ const CheckoutPage = () => {
                           <FormLabel className="text-xs font-bold">
                             Name
                           </FormLabel>
-                          <FormMessage />
+                          <FormMessage className="leading-0!" />
                         </div>
                         <FormControl>
                           <Input
@@ -113,7 +119,7 @@ const CheckoutPage = () => {
                           <FormLabel className="text-xs font-bold">
                             Email Address
                           </FormLabel>
-                          <FormMessage />
+                          <FormMessage className="leading-0!" />
                         </div>
                         <FormControl>
                           <Input
@@ -137,7 +143,7 @@ const CheckoutPage = () => {
                           <FormLabel className="text-xs font-bold">
                             Phone Number
                           </FormLabel>
-                          <FormMessage />
+                          <FormMessage className="leading-0!" />
                         </div>
                         <FormControl>
                           <Input
@@ -167,6 +173,7 @@ const CheckoutPage = () => {
                             <FormLabel className="text-xs font-bold">
                               Address
                             </FormLabel>
+                            <FormMessage className="leading-0!" />
                           </div>
                           <FormControl>
                             <Input
@@ -175,7 +182,6 @@ const CheckoutPage = () => {
                               {...field}
                             />
                           </FormControl>
-                          <FormMessage />
                         </FormItem>
                       )}
                     />
@@ -191,7 +197,7 @@ const CheckoutPage = () => {
                           <FormLabel className="text-xs font-bold">
                             ZIP Code
                           </FormLabel>
-                          <FormMessage />
+                          <FormMessage className="leading-0!" />
                         </div>
                         <FormControl>
                           <Input
@@ -214,7 +220,7 @@ const CheckoutPage = () => {
                           <FormLabel className="text-xs font-bold">
                             City
                           </FormLabel>
-                          <FormMessage />
+                          <FormMessage className="leading-0!" />
                         </div>
                         <FormControl>
                           <Input
@@ -237,7 +243,7 @@ const CheckoutPage = () => {
                           <FormLabel className="text-xs font-bold">
                             Country
                           </FormLabel>
-                          <FormMessage />
+                          <FormMessage className="leading-0!" />
                         </div>
                         <FormControl>
                           <Input
@@ -269,7 +275,7 @@ const CheckoutPage = () => {
                             className="flex flex-col space-y-4"
                           >
                             {/* e-Money Radio Button */}
-                            <FormItem className="flex items-center space-x-3 rounded-md border p-4 hover:border-brand-primary has-checked:border-brand-primary transition-colors duration-200">
+                            <FormItem className="flex items-center space-x-3 rounded-md cursor-pointer border p-4 hover:border-brand-primary has-checked:border-brand-primary transition-colors duration-200">
                               <FormControl>
                                 <RadioGroupItem value="e-Money" />
                               </FormControl>
@@ -279,7 +285,7 @@ const CheckoutPage = () => {
                             </FormItem>
 
                             {/* Cash on Delivery Radio Button */}
-                            <FormItem className="flex items-center space-x-3 rounded-md border p-4 hover:border-brand-primary has-checked:border-brand-primary transition-colors duration-200">
+                            <FormItem className="flex items-center space-x-3 rounded-md cursor-pointer border p-4 hover:border-brand-primary has-checked:border-brand-primary transition-colors duration-200">
                               <FormControl>
                                 <RadioGroupItem value="Cash on Delivery" />
                               </FormControl>
@@ -289,14 +295,14 @@ const CheckoutPage = () => {
                             </FormItem>
                           </RadioGroup>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="leading-0!" />
                       </FormItem>
                     )}
                   />
                 </div>
 
                 {/* --- CONDITIONAL e-Money FIELDS --- */}
-                {paymentMethod === "e-Money" ? (
+                {form.watch("paymentMethod") === "e-Money" ? (
                   <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mt-6">
                     {/* e-Money Number */}
                     <FormField
@@ -308,7 +314,7 @@ const CheckoutPage = () => {
                             <FormLabel className="text-xs font-bold">
                               e-Money Number
                             </FormLabel>
-                            <FormMessage />
+                            <FormMessage className="leading-0!" />
                           </div>
                           <FormControl>
                             <Input
@@ -331,7 +337,7 @@ const CheckoutPage = () => {
                             <FormLabel className="text-xs font-bold">
                               e-Money PIN
                             </FormLabel>
-                            <FormMessage />
+                            <FormMessage className="leading-0!" />
                           </div>
                           <FormControl>
                             <Input
@@ -365,71 +371,91 @@ const CheckoutPage = () => {
 
               <div className="bg-white p-8 rounded-xl lg:max-w-[350px] w-full h-fit">
                 <h6>Summary</h6>
-                <div className="flex flex-col my-8 gap-6">
-                  {orderData.items.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center justify-between"
-                    >
-                      <div className="flex items-center space-x-4">
-                        <Image
-                          src={
-                            "/earphones/product-yx1-earphones/mobile/image-product.jpg"
-                          }
-                          width={64}
-                          height={64}
-                          alt="product image"
-                          className="rounded-lg"
-                        />
-                        <div>
-                          <p className="text-sm font-bold truncate">
-                            {item.name}
-                          </p>
-                          <p className="text-sm opacity-50 font-bold">
-                            ${item.price.toLocaleString()}
-                          </p>
+                {cart.length > 0 ? (
+                  <>
+                    {" "}
+                    <div className="flex flex-col my-8 gap-6">
+                      {cart.map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex items-center justify-between"
+                        >
+                          <div className="flex items-center space-x-4">
+                            <Image
+                              src={item.mobileUrl}
+                              width={64}
+                              height={64}
+                              alt="product image"
+                              className="rounded-lg"
+                            />
+                            <div>
+                              <p className="text-sm font-bold truncate">
+                                {item?.name
+                                  ?.replace(
+                                    /headphones|earphones|speakers/i,
+                                    ""
+                                  )
+                                  .trim()}
+                              </p>
+                              <p className="text-sm opacity-50 font-bold">
+                                ${item.price.toLocaleString()}
+                              </p>
+                            </div>
+                          </div>
+                          <span className="font-bold opacity-50">
+                            x{item.quantity}
+                          </span>
                         </div>
-                      </div>
-                      <span className="font-bold opacity-50">
-                        x{item.quantity}
-                      </span>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                    <div className="space-y-2">
+                      <p className="uppercase flex justify-between items-center">
+                        <span className="opacity-50">Total</span>
+                        <span className="font-bold text-lg">
+                          ${cartTotal.toLocaleString()}
+                        </span>
+                      </p>
+                      <p className="uppercase flex justify-between items-center">
+                        <span className="opacity-50">Shipping</span>
+                        <span className="font-bold text-lg">$50</span>
+                      </p>
+                      <p className="uppercase flex justify-between items-center">
+                        <span className="opacity-50">Vat (included)</span>
+                        <span className="font-bold text-lg">7.5%</span>
+                      </p>
+                    </div>
+                    <p className="uppercase flex justify-between items-center mt-6 mb-8">
+                      <span className="opacity-50">Grand Total</span>
+                      <span className="text-brand-primary font-bold text-lg">
+                        ${(cartTotal + 50).toLocaleString()}
+                      </span>
+                    </p>{" "}
+                  </>
+                ) : (
+                  <>
+                    <div className="flex flex-col justify-center items-center gap-4 mt-6">
+                      <p>Your cart is empty</p>
+                      <ShoppingCart size={40} />
+                      <Link href={"/"}>
+                        <Button>Start Shopping</Button>
+                      </Link>
+                    </div>
+                  </>
+                )}
 
-                <div className="space-y-2">
-                  <p className="uppercase flex justify-between items-center">
-                    <span className="opacity-50">Total</span>
-                    <span className="font-bold text-lg">$5,396</span>
-                  </p>
-                  <p className="uppercase flex justify-between items-center">
-                    <span className="opacity-50">Shipping</span>
-                    <span className="font-bold text-lg">$50</span>
-                  </p>
-                  <p className="uppercase flex justify-between items-center">
-                    <span className="opacity-50">Vat (included)</span>
-                    <span className="font-bold text-lg">$1,079</span>
-                  </p>
-                </div>
-
-                <p className="uppercase flex justify-between items-center mt-6 mb-8">
-                  <span className="opacity-50">Grand Total</span>
-                  <span className="text-brand-primary font-bold text-lg">
-                    $5,446
-                  </span>
-                </p>
-
-                <div>
-                  <Button type="submit" className="w-full">
-                    Continue & Pay
-                  </Button>
-                  <SuccessModal
-                    isOpen={isModalOpen}
-                    onClose={handleClose}
-                    orderSummary={orderData}
-                    onBackToHome={handleBackToHome}
-                  />
-                </div>
+                {cart.length > 0 && (
+                  <div>
+                    <Button type="submit" className="w-full">
+                      Continue & Pay
+                    </Button>
+                    <SuccessModal
+                      isOpen={isModalOpen}
+                      onClose={handleClose}
+                      orderSummary={cart}
+                      onBackToHome={handleBackToHome}
+                    />
+                  </div>
+                )}
               </div>
             </section>
           </form>
