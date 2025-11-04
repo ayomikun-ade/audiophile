@@ -22,7 +22,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "audiophile",
+  title: "audiophile | Premium Audio Equipment",
   description: "Welcome to the land of spatial audio experiences.",
 };
 

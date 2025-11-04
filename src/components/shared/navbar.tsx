@@ -7,11 +7,13 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import Cart from "./cart";
 import MobileNav from "./mobile-nav";
+import { useIsDesktop } from "@/hooks/useMediaQuery";
 
 const Navbar = () => {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = React.useState<boolean>(false);
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const isDesktop = useIsDesktop();
 
   const isActive = (path: string) => {
     if (!pathname) return false;
@@ -34,6 +36,10 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  React.useEffect(() => {
+    if (isDesktop) setIsOpen(false);
+  }, [isDesktop]);
 
   const navLinks = [
     { name: "Home", href: "/" },

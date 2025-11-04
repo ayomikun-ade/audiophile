@@ -24,16 +24,24 @@ export default function Cart() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button aria-label="Open cart">
+        <button
+          aria-label="Open cart"
+          className="group relative cursor-pointer "
+        >
           <ShoppingCart
             size={24}
-            className="hover:text-brand-primary cursor-pointer transition-colors duration-300"
+            className="group-hover:text-brand-primary transition-colors duration-300"
           />
+          {cart.length > 0 && (
+            <div className="absolute -top-2 -right-2 bg-brand-primary w-5 h-5 rounded-full flex justify-center items-center text-sm">
+              {cart.length}
+            </div>
+          )}
         </button>
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
-        className="max-w-[377px] p-6 top-[25%] sm:left-[55%] md:left-[65%] lg:left-[70%]"
+        className="md:max-w-[377px]! p-6 top-28 lg:left-auto md:right-6! lg:right-12 translate-y-0 md:translate-x-0 xl:translate-x-[-50%]"
       >
         <DialogHeader>
           <div className="flex justify-between items-center">
