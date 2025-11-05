@@ -22,7 +22,7 @@ const MobileNav = ({ isOpen, setIsOpen }: MobileNavProps) => {
           </DialogTitle>
           <p className="opacity-50">Select a category to shop from</p>
         </DialogHeader>
-        <div className="self-end">
+        <div onClick={() => setIsOpen(false)} className="self-end">
           <QuickProducts />
         </div>
       </DialogContent>

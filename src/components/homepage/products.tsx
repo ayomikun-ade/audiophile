@@ -1,6 +1,6 @@
+"use client";
 import React from "react";
 import { Button } from "../ui/button";
-
 import SpeakerMain from "@/assets/homepage/speaker-main.png";
 import SpeakerZX7 from "@/assets/homepage/speaker-zx7.svg";
 import SpeakerZX7Tablet from "@/assets/homepage/speaker-zx7-tablet.jpg";
@@ -9,13 +9,24 @@ import EarphonesYX1 from "@/assets/homepage/earphones-yx1.svg";
 import Image from "next/image";
 import Link from "next/link";
 import QuickProducts from "./quick-products";
+import { motion } from "motion/react";
+import { useIsDesktop, useIsTablet } from "@/hooks/useMediaQuery";
 
 const Products = () => {
+  const isDesktop = useIsDesktop();
+  const isTablet = useIsTablet();
+
   return (
     <section className="max-sm:pt-[92px] max-sm:pb-[120px] max-md:py-[148px] md:py-[200px] brand-width mx-auto px-6 max-sm:space-y-6 max-md:space-y-8 md:space-y-12">
       <QuickProducts />
 
-      <div className="max-sm:mt-[120px] max-md:mt-[96] md:mt-[168px] md:px-[95px] md:h-[560px] md:bg-[url(/home/speaker-circles.svg)] max-md:bg-[url(/home/speaker-circles-mobile.svg)] max-sm:bg-contain bg-no-repeat bg-brand-primary rounded-xl flex max-md:flex-col justify-between max-md:items-center relative overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="max-sm:mt-[120px] max-md:mt-[96] md:mt-[168px] md:px-[95px] md:h-[560px] md:bg-[url(/home/speaker-circles.svg)] max-md:bg-[url(/home/speaker-circles-mobile.svg)] max-sm:bg-contain bg-no-repeat bg-brand-primary rounded-xl flex max-md:flex-col justify-between max-md:items-center relative overflow-hidden"
+      >
         <figure className="max-md:w-[200px] lg:transform lg:translate-y-24 mt-6 lg:mb-0 lg:mt-0">
           <Image
             src={SpeakerMain}
@@ -35,29 +46,27 @@ const Products = () => {
             SEE PRODUCT
           </Button>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="relative">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="relative"
+      >
         <Image
-          src={SpeakerZX7}
+          src={
+            isDesktop
+              ? SpeakerZX7
+              : isTablet
+              ? SpeakerZX7Tablet
+              : SpeakerZX7Mobile
+          }
           alt="speaker-zx7 background"
           width={1110}
           height={320}
-          className="w-full rounded-lg h-auto max-md:hidden"
-        />
-        <Image
-          src={SpeakerZX7Tablet}
-          alt="speaker-zx7 background"
-          width={689}
-          height={320}
-          className="w-full rounded-lg h-auto hidden sm:flex md:hidden"
-        />
-        <Image
-          src={SpeakerZX7Mobile}
-          alt="speaker-zx7 background"
-          width={327}
-          height={320}
-          className="w-full rounded-lg h-auto sm:hidden"
+          className="w-full rounded-lg h-auto"
         />
 
         <div className="max-sm:pl-6 max-md:pl-[62px] md:pl-[95px] absolute top-1/2 left-1/3 sm:left-1/5 lg:left-1/6 transform -translate-x-1/2 -translate-y-1/2 flex flex-col space-y-8">
@@ -66,9 +75,15 @@ const Products = () => {
             <Button variant="outline">see product</Button>
           </Link>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="grid sm:grid-cols-2 max-sm:gap-6 max-md:gap-[11px] md:gap-[30px]">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="grid sm:grid-cols-2 max-sm:gap-6 max-md:gap-[11px] md:gap-[30px]"
+      >
         <Image
           src={EarphonesYX1}
           width={540}
@@ -82,7 +97,7 @@ const Products = () => {
             <Button variant="outline">see product</Button>
           </Link>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

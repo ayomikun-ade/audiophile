@@ -5,13 +5,27 @@ import AudioGearTablet from "@/assets/homepage/gear-mobile.svg";
 import AudioGearMobile from "@/assets/homepage/image-best-gear.jpg";
 import React from "react";
 import { useIsDesktop, useIsTablet } from "@/hooks/useMediaQuery";
+import { motion } from "motion/react";
 
 const Gear = () => {
   const isTablet = useIsTablet();
   const isDesktop = useIsDesktop();
   return (
-    <section className="brand-width mx-auto px-6 max-sm:mb-[120px] max-md:mb-24 md:mb-[133px] flex max-lg:flex-col-reverse max-lg:gap-[63px] items-center justify-between">
-      <div className="space-y-8 max-md:max-w-[573px] md:max-w-[445px] max-md:flex flex-col items-center max-lg:text-center">
+    <motion.section
+      layout
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.4, ease: "easeInOut" }}
+      className="brand-width mx-auto px-6 max-sm:mb-[120px] max-md:mb-24 md:mb-[133px] flex max-lg:flex-col-reverse max-lg:gap-[63px] items-center justify-between"
+    >
+      <motion.div
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.4, delay: 0.4, ease: "easeInOut" }}
+        className="space-y-8 max-md:max-w-[573px] md:max-w-[445px] max-md:flex flex-col items-center max-lg:text-center"
+      >
         <h2>
           best Bringing you the{" "}
           <span className="text-brand-primary">best </span>
@@ -25,7 +39,7 @@ const Gear = () => {
           store to meet some of the fantastic people who make Audiophile the
           best place to buy your portable audio equipment.
         </p>
-      </div>
+      </motion.div>
       <Image
         src={
           isDesktop ? AudioGear : isTablet ? AudioGearTablet : AudioGearMobile
@@ -35,7 +49,7 @@ const Gear = () => {
         className="rounded-md "
         alt="audio gear image"
       />
-    </section>
+    </motion.section>
   );
 };
 

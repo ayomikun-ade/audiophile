@@ -6,6 +6,7 @@ import { speakersData } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { motion } from "motion/react";
 
 const SpeakersPage = () => {
   const isTablet = useIsTablet();
@@ -16,7 +17,16 @@ const SpeakersPage = () => {
       <Header heading="Speakers" />
       <section className="max-sm:space-y-[120px] sm:space-y-40 max-lg:mt-16 lg:mt-40 lg:mb-[120px] brand-width mx-auto px-6">
         {speakers.map((speaker, index) => (
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            {...(index === 0
+              ? { animate: { opacity: 1, y: 0 } }
+              : {
+                  whileInView: { opacity: 1, y: 0 },
+                  viewport: { once: true, amount: 0.2, margin: "0px 0px -100px 0px" }
+                }
+            )}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
             key={speaker.id}
             className={`flex max-sm:gap-8 max-lg:flex-col max-lg:items-center max-lg:gap-[52px] lg:items-center lg:justify-between lg:gap-4 ${
               index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
@@ -35,7 +45,18 @@ const SpeakersPage = () => {
               alt={speaker.name}
               className={isTablet ? "w-full h-auto rounded-xl" : "rounded-xl"}
             />
-            <div className="sm:max-w-[572px] max-lg:text-center lg:max-w-[445px]">
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              {...(index === 0
+                ? { animate: { opacity: 1, x: 0 } }
+                : {
+                    whileInView: { opacity: 1, x: 0 },
+                    viewport: { once: true, amount: 0.2, margin: "0px 0px -100px 0px" }
+                  }
+              )}
+              transition={{ duration: 0.4, delay: 0.4, ease: "easeInOut" }}
+              className="sm:max-w-[572px] max-lg:text-center lg:max-w-[445px]"
+            >
               <p
                 className={`${
                   index == 0
@@ -52,8 +73,8 @@ const SpeakersPage = () => {
               <Link href={`/speakers/${speaker.id}`}>
                 <Button>See Product</Button>
               </Link>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         ))}
       </section>
     </main>

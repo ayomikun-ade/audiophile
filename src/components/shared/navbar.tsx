@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import Cart from "./cart";
 import MobileNav from "./mobile-nav";
 import { useIsDesktop } from "@/hooks/useMediaQuery";
+import { motion } from "motion/react";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -54,7 +55,10 @@ const Navbar = () => {
         pathname !== "/" ? "bg-black!" : ""
       } ${isScrolled ? "bg-black/30" : ""}`}
     >
-      <section
+      <motion.section
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
         className={`max-w-[1110px] mx-auto pt-8 max-md:pb-8 md:pb-9 max-sm:px-6 lg:px-6 ${
           isScrolled ? "" : "border-b"
         }  border-white/20 w-full flex items-center justify-between`}
@@ -92,7 +96,7 @@ const Navbar = () => {
         {isOpen && <MobileNav isOpen={isOpen} setIsOpen={setIsOpen} />}
 
         <Cart />
-      </section>
+      </motion.section>
     </nav>
   );
 };

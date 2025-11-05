@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Button } from "../ui/button";
 import { ChevronRight } from "lucide-react";
@@ -6,6 +7,7 @@ import Headphones from "@/assets/homepage/headphones-1.svg";
 import Speakers from "@/assets/homepage/speakers-1.svg";
 import Earphones from "@/assets/homepage/earphones-1.svg";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 const QuickProducts = () => {
   const quickLinks = [
@@ -13,11 +15,34 @@ const QuickProducts = () => {
     { name: "Speakers", href: "/speakers", image: Speakers },
     { name: "Earphones", href: "/earphones", image: Earphones },
   ];
+
+  const container = {
+    hidden: { opacity: 1 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="brand-width mx-auto flex max-sm:flex-col max-sm:gap-[68px] gap-[30px] px-6">
+    <motion.div
+      variants={container}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      className="brand-width mx-auto flex max-sm:flex-col max-sm:gap-[68px] gap-[30px] px-6"
+    >
       {quickLinks.map((link) => (
-        <div
+        <motion.div
           key={link.name}
+          variants={item}
           className="group hover:cursor-pointer bg-brand-neutral-200 flex-1 flex justify-center items-end pb-[30px] rounded-md max-sm:min-h-[165px] min-h-[204px] relative"
         >
           <div className="flex flex-col items-center gap-[15px]">
@@ -42,9 +67,9 @@ const QuickProducts = () => {
               className="absolute -translate-y-1/2 max-sm:h-[120px] h-full w-auto top-5 left-1/2 -translate-x-1/2"
             />
           </div>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 

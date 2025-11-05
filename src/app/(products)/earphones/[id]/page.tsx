@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
+import { motion } from "motion/react";
 
 const SingleEarphonePage = () => {
   const { id } = useParams();
@@ -35,15 +36,38 @@ const SingleEarphonePage = () => {
     setCount((prev) => prev - 1);
   };
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const childDiv = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0 },
+  };
+
   return (
     <main className="brand-width mx-auto px-6 max-lg:pt-[124px] lg:pt-44">
       <Link href={"/earphones"} className="">
-        <p className="inline-block opacity-50 hover:text-brand-primary hover:opacity-100 transition-colors duration-300">
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="inline-block opacity-50! hover:text-brand-primary hover:opacity-100 transition-colors duration-300"
+        >
           Go Back
-        </p>
+        </motion.p>
       </Link>
       <section className="max-lg:pt-6 lg:pt-14 max-lg:space-y-[120px] lg:space-y-40">
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           key={earphone?.id}
           className={`flex max-sm:gap-8 max-sm:flex-col max-sm:items-center max-lg:gap-[52px] sm:items-center sm:justify-between lg:gap-4`}
         >
@@ -62,7 +86,12 @@ const SingleEarphonePage = () => {
               className={isTablet ? "w-full h-auto rounded-xl" : "rounded-xl"}
             />
           )}
-          <div className="max-sm:max-w-[327px] sm:max-w-[572px] lg:max-w-[445px]">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.3, ease: "easeInOut" }}
+            className="max-sm:max-w-[327px] sm:max-w-[572px] lg:max-w-[445px]"
+          >
             <p
               className={`${
                 isNew ? "brand-overline text-brand-primary mb-4" : "hidden"
@@ -104,16 +133,28 @@ const SingleEarphonePage = () => {
                 </Button>
               )}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         <div className="flex max-lg:flex-col lg:justify-between">
-          <div className="max-w-[635px]">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="max-w-[635px]"
+          >
             <h3 className="mb-8">Features</h3>
             <p className="opacity-50 mb-6">{earphone?.features[0]}</p>
             <p className="opacity-50">{earphone?.features[1]}</p>
-          </div>
-          <div className="lg:max-w-[350px]  max-sm:pt-[88px] max-lg:pt-[120px] max-lg:grid max-sm:grid-cols-1 grid-cols-2 w-full">
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.4, delay: 0.3, ease: "easeInOut" }}
+            className="lg:max-w-[350px]  max-sm:pt-[88px] max-lg:pt-[120px] max-lg:grid max-sm:grid-cols-1 grid-cols-2 w-full"
+          >
             <h3 className="lg:mb-8 max-sm:mb-6">In The Box</h3>
             <ul className="space-y-2">
               {earphone?.box.map((item) => (
@@ -125,11 +166,17 @@ const SingleEarphonePage = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </motion.div>
         </div>
 
         {earphone?.gallery && (
-          <div className="flex max-md:flex-col md:justify-between gap-4 lg:max-h-[592px]">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="flex max-md:flex-col md:justify-between gap-4 lg:max-h-[592px]"
+          >
             <div className="flex flex-col justify-between gap-4">
               <Image
                 className="rounded-xl max-sm:w-full sm:max-w-[277px] lg:max-w-[445px]"
@@ -171,16 +218,29 @@ const SingleEarphonePage = () => {
               height={280}
               alt={`${earphone?.name} gallery image 1`}
             />
-          </div>
+          </motion.div>
         )}
 
         <div className="lg:mb-20">
-          <h3 className="text-center max-lg:mb-14 lg:mb-16">
+          <motion.h3
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="text-center max-lg:mb-14 lg:mb-16"
+          >
             You may also like
-          </h3>
-          <div className="flex max-sm:flex-col lg:justify-between max-sm:gap-14 sm:gap-[30px]">
+          </motion.h3>
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="flex max-sm:flex-col lg:justify-between max-sm:gap-14 sm:gap-[30px]"
+          >
             {alsoProducts.map((item) => (
-              <div
+              <motion.div
+                variants={childDiv}
                 key={item?.id}
                 className="flex flex-col items-center text-center"
               >
@@ -205,9 +265,9 @@ const SingleEarphonePage = () => {
                 <Link href={`/${item?.category}/${item?.id}`}>
                   <Button>See Product</Button>
                 </Link>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>

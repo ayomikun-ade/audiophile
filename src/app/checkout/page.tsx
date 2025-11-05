@@ -24,6 +24,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useMutation } from "convex/react";
 import { api } from "../../../convex/_generated/api";
+import { motion } from "motion/react";
 
 const initialValues: Partial<CheckoutFormValues> = {
   name: "",
@@ -163,15 +164,25 @@ const CheckoutPage = () => {
     <main className="bg-brand-neutral-200 max-lg:pt-[124px] lg:pt-44">
       <section className="brand-width mx-auto px-6 pb-[141px]">
         <Link href={"/"} className="">
-          <p className="inline-block opacity-50 hover:text-brand-primary hover:opacity-100 transition-colors duration-300">
+          <motion.p
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="inline-block opacity-50 hover:text-brand-primary hover:opacity-100 transition-colors duration-300"
+          >
             Go Back
-          </p>
+          </motion.p>
         </Link>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <section className="pt-[38px] flex max-lg:flex-col gap-[30px]">
-              <div className="bg-white p-6 lg:px-12 lg:py-[54px] rounded-xl lg:max-w-[730px] w-full">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1, ease: "easeInOut" }}
+                className="bg-white p-6 lg:px-12 lg:py-[54px] rounded-xl lg:max-w-[730px] w-full"
+              >
                 <h3 className="mb-10">Checkout</h3>
                 {/* --- BILLING DETAILS --- */}
                 <p className="subtitle text-brand-primary mb-4">
@@ -459,9 +470,14 @@ const CheckoutPage = () => {
                     </p>
                   </div>
                 )}
-              </div>
+              </motion.div>
 
-              <div className="bg-white p-8 rounded-xl lg:max-w-[350px] w-full h-fit">
+              <motion.div
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.2, ease: "easeInOut" }}
+                className="bg-white p-8 rounded-xl lg:max-w-[350px] w-full h-fit"
+              >
                 <h6>Summary</h6>
                 {cart.length > 0 ? (
                   <>
@@ -550,7 +566,7 @@ const CheckoutPage = () => {
                   orderSummary={cart}
                   onBackToHome={handleBackToHome}
                 />
-              </div>
+              </motion.div>
             </section>
           </form>
         </Form>

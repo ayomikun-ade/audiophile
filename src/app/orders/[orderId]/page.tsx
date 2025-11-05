@@ -7,9 +7,13 @@ import { MapPin, User, Tag, DollarSign, PackageX } from "lucide-react";
 import LoadingScreen from "@/components/shared/loading";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { earphonesData, headphonesData, speakersData } from "@/lib/data";
+import Image from "next/image";
+import { motion } from "motion/react";
 
 const OrderDetails = () => {
   const { orderId } = useParams();
+  const products = [...headphonesData, ...earphonesData, ...speakersData];
 
   const customId = Array.isArray(orderId) ? orderId[0] : orderId;
 
@@ -17,6 +21,11 @@ const OrderDetails = () => {
     api.orders.getOrderByCustomId,
     customId ? { customId: customId } : "skip"
   );
+
+  const getProductImageById = (id: string) => {
+    const product = products.find((item) => item.id === id);
+    return product?.mobileUrl ?? "";
+  };
 
   if (order === undefined) {
     return (
@@ -34,6 +43,9 @@ const OrderDetails = () => {
           An order with that ID was not found. Please confirm the ID and try
           again.
         </p>
+        <Link href={"/"}>
+          <Button>Go Home</Button>
+        </Link>
       </div>
     );
   }
@@ -48,9 +60,24 @@ const OrderDetails = () => {
 
   return (
     <section className="py-[120px] brand-width mx-auto px-6">
-      <div className="space-y-8 mb-8">
+      <Link href={"/headphones"} className="">
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="inline-block opacity-50 hover:text-brand-primary hover:opacity-100 transition-colors duration-300"
+        >
+          Go Back
+        </motion.p>
+      </Link>
+      <div className="space-y-8 mb-8 mt-8">
         {/* Header and Status Badge */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 bg-white rounded-xl shadow-m border">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1, ease: "easeInOut" }}
+          className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 bg-white rounded-xl shadow-m border"
+        >
           <div>
             <h3>
               Order Summary for{" "}
@@ -63,9 +90,14 @@ const OrderDetails = () => {
               Placed: {new Date(order.createdAt).toLocaleDateString()}
             </p>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2, ease: "easeInOut" }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
           <div className="p-6 bg-white rounded-xl shadow-md space-y-4">
             <h5 className=" flex items-center border-b pb-2 mb-3">
               <User className="w-5 h-5 mr-2 text-brand-primary" /> Customer
@@ -100,10 +132,15 @@ const OrderDetails = () => {
               {order.shipping.country}
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Ordered Items Table */}
-        <div className="p-6 bg-white rounded-xl shadow-md">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3, ease: "easeInOut" }}
+          className="p-6 bg-white rounded-xl shadow-md"
+        >
           <h5 className="mb-4 flex items-center border-b pb-2">
             <Tag className="w-5 h-5 mr-2 text-brand-primary" /> Ordered Items
           </h5>
@@ -111,6 +148,9 @@ const OrderDetails = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
+                    Preview
+                  </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
                     Product
                   </th>
@@ -129,6 +169,15 @@ const OrderDetails = () => {
                 {order.items.map((item, index) => (
                   <tr key={index} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                      <Image
+                        src={getProductImageById(item.id)}
+                        width={40}
+                        height={40}
+                        alt={`${item.name} image`}
+                        className="rounded"
+                      />
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                       {item.name}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-right">
@@ -145,10 +194,15 @@ const OrderDetails = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </motion.div>
 
         {/* Totals Summary */}
-        <div className="p-6 bg-white rounded-xl shadow-md">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.4, ease: "easeInOut" }}
+          className="p-6 bg-white rounded-xl shadow-md"
+        >
           <h5 className="mb-4 flex items-center border-b pb-2">
             <DollarSign className="w-5 h-5 mr-2 text-brand-primary" /> Payment
             Summary
@@ -177,11 +231,18 @@ const OrderDetails = () => {
               <span>{formatCurrency(order.totals.grandTotal)}</span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
-      <Link href={"/"} className="flex justify-self-end">
-        <Button>Continue Shopping</Button>
-      </Link>
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.5, ease: "easeInOut" }}
+        className="flex justify-self-end"
+      >
+        <Link href={"/"}>
+          <Button>Continue Shopping</Button>
+        </Link>
+      </motion.div>
     </section>
   );
 };

@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React from "react";
+import { motion } from "motion/react";
 
 const SingleSpeakerPage = () => {
   const { id } = useParams();
@@ -34,15 +35,38 @@ const SingleSpeakerPage = () => {
     setCount((prev) => prev - 1);
   };
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+      },
+    },
+  };
+
+  const childDiv = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0 },
+  };
+
   return (
     <main className="brand-width mx-auto px-6 max-lg:pt-[124px] lg:pt-44">
       <Link href={"/speakers"} className="">
-        <p className="inline-block opacity-50 hover:text-brand-primary hover:opacity-100 transition-colors duration-300">
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="inline-block opacity-50! hover:text-brand-primary hover:opacity-100 transition-colors duration-300"
+        >
           Go Back
-        </p>
+        </motion.p>
       </Link>
       <section className="max-lg:pt-6 lg:pt-14 max-lg:space-y-[120px] lg:space-y-40">
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
           key={speaker?.id}
           className={`flex max-sm:gap-8 max-sm:flex-col max-sm:items-center max-lg:gap-[52px] sm:items-center sm:justify-between lg:gap-4`}
         >
@@ -61,7 +85,12 @@ const SingleSpeakerPage = () => {
               className={isTablet ? "w-full h-auto rounded-xl" : "rounded-xl"}
             />
           )}
-          <div className="max-sm:max-w-[327px] sm:max-w-[572px] lg:max-w-[445px]">
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.3, ease: "easeInOut" }}
+            className="max-sm:max-w-[327px] sm:max-w-[572px] lg:max-w-[445px]"
+          >
             <p
               className={`${
                 isNew ? "brand-overline text-brand-primary mb-4" : "hidden"
@@ -103,8 +132,8 @@ const SingleSpeakerPage = () => {
                 </Button>
               )}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         <div className="flex max-lg:flex-col lg:justify-between">
           <div className="max-w-[635px]">
@@ -128,7 +157,13 @@ const SingleSpeakerPage = () => {
         </div>
 
         {speaker?.gallery && (
-          <div className="flex max-md:flex-col md:justify-between gap-4 lg:max-h-[592px]">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="flex max-md:flex-col md:justify-between gap-4 lg:max-h-[592px]"
+          >
             <div className="flex flex-col justify-between gap-4">
               <Image
                 className="rounded-xl max-sm:w-full sm:max-w-[277px] lg:max-w-[445px]"
@@ -170,16 +205,23 @@ const SingleSpeakerPage = () => {
               height={280}
               alt={`${speaker?.name} gallery image 1`}
             />
-          </div>
+          </motion.div>
         )}
 
         <div className="lg:mb-20">
-          <h3 className="text-center max-lg:mb-14 lg:mb-16">
+          <motion.h3 className="text-center max-lg:mb-14 lg:mb-16">
             You may also like
-          </h3>
-          <div className="flex max-sm:flex-col lg:justify-between max-sm:gap-14 sm:gap-[30px]">
+          </motion.h3>
+          <motion.div
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            className="flex max-sm:flex-col lg:justify-between max-sm:gap-14 sm:gap-[30px]"
+          >
             {alsoProducts.map((item) => (
-              <div
+              <motion.div
+                variants={childDiv}
                 key={item?.id}
                 className="flex flex-col items-center text-center"
               >
@@ -204,9 +246,9 @@ const SingleSpeakerPage = () => {
                 <Link href={`/${item?.category}/${item?.id}`}>
                   <Button>See Product</Button>
                 </Link>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
     </main>
